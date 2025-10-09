@@ -1,0 +1,23 @@
+[project]
+name = "onsen-map"
+version = "0.1.0"
+description = "日本100名泉をマップに表示するアプリ"
+authors = [
+    {name = "Cline"}
+]
+readme = "README.md"
+requires-python = ">=3.9,!=3.9.7,<4.0"
+dependencies = [
+    "streamlit (>=1.50.0,<2.0.0)",
+    "pandas (>=2.3.2,<3.0.0)",
+    "folium (>=0.20.0,<0.21.0)",
+    "streamlit-folium (>=0.25.2,<0.26.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "beautifulsoup4 (>=4.13.5,<5.0.0)",
+    "geocoder (>=1.38.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
