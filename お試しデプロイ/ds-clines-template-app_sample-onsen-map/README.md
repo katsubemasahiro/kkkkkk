@@ -1,116 +1,81 @@
-## Clineによるアプリ開発のためのツールセット
+# 日本100名泉マップ
 
-### 概要
-このリポジトリでは、Clineを使った効率的なアプリ開発のためのテンプレートを提供する
+日本の名湯をインタラクティブな地図で探索できるWebアプリケーションです。温泉の位置情報や詳細を簡単に確認できます。
 
-### クイックスタート
-1. このリポジトリをクローン
-2. Custom Instrunctionに[これ](https://docs.cline.bot/prompting/cline-memory-bank#cline-memory-bank-custom-instructions-%5Bcopy-this%5D)をコピペ
-3. 共通ルールを設定:`clinerules-bank/common`フォルダ内のルール定義ファイルを`.clinerules`にコピー
-4. 仕様書等を格納する または Planモードでやりたいことを決定する
-5. Clineで「initialize memory bank」を実行
-6. 開発開始！
+## 機能
 
+- **地図表示**: 日本全国の温泉をマップ上に表示
+- **クラスタリング**: 近接する温泉をグループ化して表示
+- **フィルタリング**: 都道府県や名称による絞り込み
+- **詳細情報**: 各温泉の詳細情報を表示
+- **データ収集**: Wikipediaから温泉データを自動収集
 
-### フォルダ構成
+## インストール
 
-```
-ds-clines-template/
-├── .clinerules/               # プロジェクトルール設定フォルダ
-│   └── .keep                      # Gitリポジトリに空フォルダを含めるためのファイル
-│
-├── clinerules-bank/           # Clineルール事例集
-│   ├── common/                # 共通のルール定義
-│   │   ├── 01-tech-stack.md       # 使用する技術スタックとバージョン情報
-│   │   ├── 02-coding.md           # コーディング規約
-│   │   ├── 03-documentation.md    # ドキュメンテーション規約
-│   │   └── 04-workflow-guidelines.md # ワークフロー・ガイドライン
-│   │
-│   └── project-specific/      # プロジェクト固有のルール定義
-│       └── .keep                  # Gitリポジトリに空フォルダを含めるためのファイル
-│
-├── memory-bank/               # Clineのメモリーバンク（プロジェクト記憶）
-│   └── .keep                      # Gitリポジトリに空フォルダを含めるためのファイル
-│
-└── README.md                  # プロジェクト概要
-```
+### 必要条件
 
-### 環境設定方法
+- Python 3.9以上
+- Poetry（パッケージ管理ツール）
 
-プロジェクトを開始するには、以下の手順で環境を設定してください：
+### セットアップ
 
-1. **共通ルールの設定**：
-   `clinerules-bank/common` フォルダ内のルール定義ファイルを `.clinerules` フォルダにコピーします。
+1. リポジトリをクローン
 
-2. **プロジェクト固有ルールの設定**：
-   必要に応じて、プロジェクトに適したルールファイルを `clinerules-bank/project-specific` フォルダにコピーします。
-
-#### セットアップコマンド
-
-**Linux / macOS:**
 ```bash
-# 共通ルールをコピー
-cp clinerules-bank/common/* .clinerules/
-
-# プロジェクト固有ルールがある場合は適宜コピー
-# 例: cp path/to/project-rules/* clinerules-bank/project-specific/
+git clone https://github.com/yourusername/onsen-map.git
+cd onsen-map
 ```
 
-**Windows (CMD):**
-```cmd
-rem 共通ルールをコピー
-copy clinerules-bank\common\* .clinerules\
+2. 依存関係のインストール
 
-rem プロジェクト固有ルールがある場合は適宜コピー
-rem 例: copy path\to\project-rules\* clinerules-bank\project-specific\
+```bash
+poetry install
 ```
 
-**Windows (PowerShell):**
-```powershell
-# 共通ルールをコピー
-Copy-Item -Path clinerules-bank\common\* -Destination .clinerules
+## 使用方法
 
-# プロジェクト固有ルールがある場合は適宜コピー
-# 例: Copy-Item -Path path\to\project-rules\* -Destination clinerules-bank\project-specific
+1. アプリケーションを起動
+
+```bash
+cd src
+poetry run streamlit run app.py
 ```
 
+2. Webブラウザが自動的に開き、アプリが表示されます
+3. 「データを収集する」ボタンをクリックしてデータを収集
+4. 地図上の温泉マーカーをクリックして詳細を表示
+5. サイドバーのフィルターで温泉を絞り込み
 
-### Memory Bankについて
-Memory Bankは、Clineがタスクを跨いだときに記憶喪失にならないようにする仕組み  
-`memory-bank`フォルダ下のファイルを読み書きすることにより、Clineは一度リセットされても、プロジェクトの状況を理解して継続的に作業できるようになる  
-参考：https://docs.cline.bot/prompting/cline-memory-bank
-
-**Custom Instructionの設定**  
-Clineの設定画面の下部にCustom Instructionの入力欄がある。
-そちらに[これ](https://docs.cline.bot/prompting/cline-memory-bank#cline-memory-bank-custom-instructions-%5Bcopy-this%5D)をコピペ
-
-**Memory Bankのつかいかた**  
-以下の三つを主に使用する
- - **“initialize memory bank”**  
-Memory Bankの初期化 新しいプロジェクトを開始する際に使用
- - **“follow your custom instructions”**  
- カスタム指示を読む ClineがMemory Bankファイルを読み、中断したところから継続（タスクの開始時に使用）
- - **“update memory bank”**  
- Memory Bankの更新 タスク中にドキュメントを更新したくなった時
-
-### .clineignoreについて
-Clineに読まれたくない機密データ等がある場合、`.clineignore`に以下のように指定する。
+## プロジェクト構造
 
 ```
-# Dependencies
-node_modules/
-**/node_modules/
-.pnp
-.pnp.js
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Large data files
-*.csv
-*.xlsx
+onsen-map/
+├── data/               # データファイル
+│   ├── onsen_data.csv  # 収集した温泉データ
+│   └── images/         # 温泉画像（将来拡張用）
+├── src/                # ソースコード
+│   ├── app.py          # メインのStreamlitアプリ
+│   ├── data_collector.py  # データ収集機能
+│   ├── data_loader.py  # データ読み込み機能
+│   └── map_view.py     # マップ表示機能
+└── tests/              # テストコード
 ```
+
+## 技術スタック
+
+- **フロントエンド**: Streamlit
+- **データ処理**: Pandas
+- **マッピング**: Folium
+- **データ収集**: BeautifulSoup4, Requests
+- **位置情報**: Geocoder
+
+## 将来の拡張予定
+
+- 温泉の詳細情報（泉質、効能など）の追加
+- 温泉施設の写真表示
+- ユーザーによる口コミ・評価機能
+- モバイルアプリ版の開発
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。

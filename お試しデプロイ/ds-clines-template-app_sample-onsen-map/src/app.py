@@ -13,7 +13,7 @@ from map_view import OnsenMapView
 
 # ページ設定
 st.set_page_config(
-    page_title="日本100名泉マップ",
+    page_title="日本100名泉マップ!!",
     page_icon="♨️",
     layout="wide"
 )
@@ -104,7 +104,7 @@ def display_onsen_info(df):
 def main():
     """メイン関数"""
     # ヘッダー
-    st.title("♨️ 日本100名泉マップ")
+    st.title("♨️ 日本100名泉マップ!!!")
     st.markdown("""
     日本全国の名湯をインタラクティブなマップで探索できるアプリケーションです。
     温泉の場所や詳細情報を簡単に確認できます。
@@ -115,7 +115,7 @@ def main():
         st.header("操作パネル")
         
         # 手動データ使用に関する注釈
-        st.info("日本の名湯データは手動で作成されています。")
+        st.info("日本の名湯データは手動で作成されています!!!")
         
         st.divider()
         
